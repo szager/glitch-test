@@ -28,10 +28,12 @@ function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function tick() {
- if(things.length > 6) {
+ if(things.length < 80) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="gray";
+ ctx.fillRect(490, 0, 20, 100);
  things.forEach(idklmao => update(idklmao));
  moveEach();
  requestAnimationFrame(tick);
@@ -59,6 +61,11 @@ function move(object) {
   object[1] = canvas.height - 20;
   object[3] *= 0.9;
  }
+ if(object[3] + object[0] > canvas.width - 20) {
+  object[] = 0;
+  object[1] = canvas.height - 20;
+  object[3] *= 0.9;
+ }
  object[0] += object[3];
  object[1] += object[4];
  ctx.beginPath();
@@ -68,7 +75,7 @@ function move(object) {
  ctx.closePath();
 }
 function addcircle() {
-things.push([50,50,20,Math.random() * 40 - 20,Math.random() * 40 - 20]);
+things.push([500,100,20,Math.random() * 40 - 20,Math.random() * 40 - 20]);
 }
 tick();
 </script>
