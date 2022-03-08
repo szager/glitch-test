@@ -23,12 +23,12 @@ alert("w");
 var idk = 1;
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-var things = [[50, 50, 20, 4, -6],[40, 40, 20, 4, -6]]
+var things = [];
 function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function tick() {
- if(things.length < 80) {
+ if(things.length < 500) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -42,11 +42,22 @@ function collision(a,b) {
  let dx = a[0] + a[3] - b[0] - b[3];
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
- if(d > 0 && d < a[2] * 10) {
-   a[4] += dy / d * 8;
-   a[3] += dx / d * 8;
+ if(d > 0 && d < a[2] * 4) {
+   a[4] *= 0.98;
+   a[3] *= 0.98;
+   a[4] += dy / d * 2;
+   a[3] += dx / d * 2;
+   ctx.beginPath();
+   ctx.strokeStyle="blue";
+   ctx.lineWidth = String(a[2] * 20);
+   ctx.moveTo(a[0], a[1]);
+   ctx.lineTo(b[0], b[1]);
+   ctx.stroke();
+   ctx.closePath();
  }
   if(d > 0 && d < a[2]) {
+   //a[4] *= d / a[2];
+   //a[3] *= d / a[2];
    a[4] += (dy / d) * (d - a[2]);
    a[3] += (dx / d) * (d - a[2]);
  }
@@ -69,13 +80,13 @@ function move(object) {
  object[0] += object[3];
  object[1] += object[4];
  ctx.beginPath();
- ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
+ ctx.arc(object[0], object[1], object[2] * 10, 0, Math.PI * 2);
  ctx.fillStyle="blue";
  ctx.fill();
  ctx.closePath();
 }
 function addcircle() {
-things.push([500,100,20,Math.random() * 40 - 20,Math.random() * 40 - 20]);
+things.push([500,100,2,Math.random() * 40 - 20,Math.random() * 40 - 20]);
 }
 tick();
 </script>
