@@ -16,7 +16,7 @@ background-color: brown;
 <p id="text">
 a
 </p>
-<canvas width="400" height="200" id="canvas">
+<canvas width="1000" height="500" id="canvas">
 </canvas>
 <script>
 alert("w");
@@ -28,6 +28,9 @@ function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function tick() {
+ if(things.length > 6) {
+   addcircle();
+ }
  ctx.clearRect(0,0,canvas.width,canvas.height);
  things.forEach(idklmao => update(idklmao));
  moveEach();
@@ -64,7 +67,9 @@ function move(object) {
  ctx.fill();
  ctx.closePath();
 }
-things.push([]);
+function addcircle() {
+things.push([50,50,20,Math.random() * 40 - 20,Math.random() * 40 - 20]);
+}
 tick();
 </script>
 </body>
