@@ -42,7 +42,7 @@ function collision(a,b) {
  let dx = a[0] + a[3] - b[0] - b[3];
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
- if(d > 0 && d < a[2] * 5) {
+ if(d > 0 && d < a[2] * 7) {
    a[4] *= 0.98;
    a[3] *= 0.98;
    a[4] += dy * (a[2]) / d;
@@ -91,7 +91,7 @@ if(object[3] + object[0] < object[2]) {
  ctx.closePath();
 }
 function addcircle() {
-things.push([500,100,5,Math.random() * 40 - 20,Math.random() * 40]);
+things.push([500,100,2,Math.random() * 40 - 20,Math.random() * 80]);
 }
 tick();
 </script>
