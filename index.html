@@ -39,16 +39,16 @@ function tick() {
  requestAnimationFrame(tick);
 }
 function collision(a,b) {
- let dx = a[0] - b[0];
- let dy = a[1] - b[1];
+ let dx = a[0] + a[3] - b[0] - b[3];
+ let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
- if(d > 0 && d < a[2] * 2) {
-   a[4] += dy / d;
-   a[3] += dx / d;
+ if(d > 0 && d < a[2] * 10) {
+   a[4] += dy / d * 8;
+   a[3] += dx / d * 8;
  }
   if(d > 0 && d < a[2]) {
-   a[4] += (dy * 5 / d) / (d - a[2]);
-   a[3] += (dx * 5 / d) / (d - a[2]);
+   a[4] += (dy / d) * (d - a[2]);
+   a[3] += (dx / d) * (d - a[2]);
  }
 }
 function update(object) {
@@ -57,14 +57,14 @@ function update(object) {
 }
 function move(object) {
  if(object[4] + object[1] > canvas.height - 20) {
-  object[4] = 0;
+  object[4] *= -0.5;
   object[1] = canvas.height - 20;
-  object[3] *= 0.9;
+  object[3] *= 0.5;
  }
  if(object[3] + object[0] > canvas.width - 20) {
-  object[] = 0;
+  object[3] *= -0.5;
   object[1] = canvas.height - 20;
-  object[3] *= 0.9;
+  object[4] *= 0.5;
  }
  object[0] += object[3];
  object[1] += object[4];
