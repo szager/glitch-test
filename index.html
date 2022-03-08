@@ -28,7 +28,7 @@ function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function tick() {
- ctx.clearRect(0,0,canvas.height,canvas.width);
+ ctx.clearRect(0,0,canvas.width,canvas.height);
  things.forEach(idklmao => update(idklmao));
  moveEach();
  requestAnimationFrame(tick);
@@ -37,12 +37,18 @@ function collision(a,b) {
  let dx = a[0] - b[0];
  let dy = a[1] - b[1];
  let d = Math.sqrt(dy * dy + dx * dx);
- a[4] += dy / d;
- a[3] += dx / d;
+ if(d > 0 && d < a[2] * 2) {
+   a[4] += dy / d;
+   a[3] += dx / d;
+ }
+  if(d > 0 && d < a[2]) {
+   a[4] += (dy * 5 / d) / (d - a[2]);
+   a[3] += (dx * 5 / d) / (d - a[2]);
+ }
 }
 function update(object) {
  object[4] += 1;
- //things.forEach(thing => collision(object,thing));
+ things.forEach(thing => collision(object,thing));
 }
 function move(object) {
  if(object[4] + object[1] > canvas.height - 20) {
@@ -53,11 +59,12 @@ function move(object) {
  object[0] += object[3];
  object[1] += object[4];
  ctx.beginPath();
- ctx.arc(object[0], object[1], 20, 0, Math.PI * 2);
+ ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
  ctx.fillStyle="blue";
  ctx.fill();
  ctx.closePath();
 }
+things.push([]);
 tick();
 </script>
 </body>
