@@ -45,20 +45,22 @@ function collision(a,b) {
  if(d > 0 && d < a[2] * 2) {
    a[4] += dy / d;
    a[3] += dx / d;
-   ctx.beginPath();
-   ctx.strokeStyle = "blue";
-   ctx.lineWidth = String(a[2]);
-   ctx.moveTo(a[0], a[1]);
-   ctx.lineTo(b[0], b[1]);
-   ctx.stroke();
-   ctx.closePath();
+   //ctx.beginPath();
+   //ctx.strokeStyle = "blue";
+   //ctx.lineWidth = String(a[2]);
+   //ctx.moveTo(a[0], a[1]);
+   //ctx.lineTo(b[0], b[1]);
+   //ctx.stroke();
+   //ctx.closePath();
  }
   if(d > 0 && d < a[2] * 2) {
    [a[3], a[4], b[3], b[4]] = [b[3],b[4],a[3], a[4]];
    //a[4] *= d / a[2];
    //a[3] *= d / a[2];
-   a[1] += (dy / d / 2) * (d - a[2]);
-   a[0] += (dx / d / 2) * (d - a[2]);
+   a[1] += (dy / d) * (d - a[2]);
+   a[0] += (dx / d) * (d - a[2]);
+   a[4] += (dy / d / 8) * (d - a[2]);
+   a[3] += (dx / d / 8) * (d - a[2]);
    
  }
 }
@@ -85,7 +87,7 @@ if(object[3] + object[0] < object[2]) {
  object[0] += object[3];
  object[1] += object[4];
  ctx.beginPath();
- ctx.arc(object[0], object[1], object[2] * 2, 0, Math.PI * 2);
+ ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
  ctx.fillStyle="blue";
  ctx.fill();
  ctx.closePath();
