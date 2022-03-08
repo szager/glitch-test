@@ -28,7 +28,7 @@ function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function tick() {
- if(things.length < 500) {
+ if(things.length < 200) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -42,14 +42,14 @@ function collision(a,b) {
  let dx = a[0] + a[3] - b[0] - b[3];
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
- if(d > 0 && d < a[2] * 7) {
+ if(d > 0 && d < a[2] * 10) {
    a[4] *= 0.98;
    a[3] *= 0.98;
-   a[4] += dy * (a[2]) / d;
-   a[3] += dx * (a[2]) / d;
+   a[4] += dy * a[2] / d;
+   a[3] += dx * a[2] / d;
    ctx.beginPath();
-   ctx.strokeStyle="blue";
-   ctx.lineWidth = String(a[2] * 3);
+   ctx.strokeStyle = "blue";
+   ctx.lineWidth = String(a[2] * 8);
    ctx.moveTo(a[0], a[1]);
    ctx.lineTo(b[0], b[1]);
    ctx.stroke();
@@ -84,14 +84,14 @@ if(object[3] + object[0] < object[2]) {
  }
  object[0] += object[3];
  object[1] += object[4];
- ctx.beginPath();
- ctx.arc(object[0], object[1], object[2] * 3, 0, Math.PI * 2);
- ctx.fillStyle="blue";
- ctx.fill();
- ctx.closePath();
+ //ctx.beginPath();
+ //ctx.arc(object[0], object[1], object[2] * 8, 0, Math.PI * 2);
+ //ctx.fillStyle="blue";
+ //ctx.fill();
+ //ctx.closePath();
 }
 function addcircle() {
-things.push([500,100,2,Math.random() * 40 - 20,Math.random() * 80]);
+things.push([500,100,4,Math.random() * 40 - 20,Math.random() * 80]);
 }
 tick();
 </script>
