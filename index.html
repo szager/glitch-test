@@ -33,8 +33,8 @@ function tick() {
  }
  function drawparticle(object) {
   ctx.beginPath();
-  ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
-  ctx.fillStyle="skyblue";
+  ctx.arc(object[0], object[1], object[2] / 2, 0, Math.PI * 2);
+  ctx.fillStyle="red";
   ctx.fill();
   ctx.closePath();
  }
@@ -64,8 +64,8 @@ function collision(a,b) {
    a[5] -= dx / d / 4;
    a[6] -= dy / d / 4;
    ctx.beginPath();
-   ctx.strokeStyle = "skyblue";
-   ctx.lineWidth = String(a[2] * 2);
+   ctx.strokeStyle = "gray";
+   ctx.lineWidth = String(a[2] / 4);
    ctx.moveTo(a[0], a[1]);
    ctx.lineTo(b[0], b[1]);
    ctx.stroke();
