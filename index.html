@@ -79,7 +79,7 @@ function collision(a,b) {
  }
  }
 function update(object) {
- object[4] += 1;
+ object[4] += 2;
  object[5] = object[3] / 4;
  object[6] = object[4] / 4;
  object[7] = 0.25;
@@ -94,6 +94,13 @@ function move(object) {
   object[1] = canvas.height - object[2];
   object[3] *= 0.5;
  }
+  
+ if(object[4] + object[1] > canvas.height - object[2] && object[0] + object[1] < 600 && object[0] + object[1] > 400) {
+  object[4] *= -0.5;
+  object[1] = canvas.height - object[2];
+  object[3] *= 0.5;
+ }
+  
  if(object[3] + object[0] > canvas.width - object[2]) {
   object[3] *= -0.5;
   object[0] = canvas.width - object[2];
