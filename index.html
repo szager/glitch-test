@@ -39,12 +39,12 @@ function tick() {
  requestAnimationFrame(tick);
 }
 function collision(a,b) {
- let dx = a[0] - b[0];
- let dy = a[1] - b[1];
+ let dx = a[0] + a[3] - b[0] - b[3];
+ let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
  if(d > 0 && d < a[2] * 2) {
-   a[4] += dy / d;
-   a[3] += dx / d;
+   //a[4] += dy / d;
+   //a[3] += dx / d;
    //ctx.beginPath();
    //ctx.strokeStyle = "blue";
    //ctx.lineWidth = String(a[2]);
@@ -54,19 +54,22 @@ function collision(a,b) {
    //ctx.closePath();
  }
   if(d > 0 && d < a[2] * 2) {
-   [a[3], a[4], b[3], b[4]] = [b[3],b[4],a[3], a[4]];
-   //a[4] *= d / a[2];
-   //a[3] *= d / a[2];
-   a[1] += (dy / d) * (d - a[2]);
-   a[0] += (dx / d) * (d - a[2]);
-   a[4] += (dy / d / 8) * (d - a[2]);
-   a[3] += (dx / d / 8) * (d - a[2]);
-   
+   a[5] += b[3];
+   a[6] += b[4];
+   a[6] -= dy / d;
+   a[5] -= dx / d;
+   a[7] += 1;
  }
 }
 function update(object) {
  object[4] += 1;
+ object[5] = object[3] / 4;
+ object[6] = object[4] / 4;
+ object[7] = 0.25;
+
  things.forEach(thing => collision(object,thing));
+ object[3] = object[5] / object[7];
+ object[4] = object[6] / object[7];
 }
 function move(object) {
  if(object[4] + object[1] > canvas.height - object[2]) {
@@ -93,7 +96,7 @@ if(object[3] + object[0] < object[2]) {
  ctx.closePath();
 }
 function addcircle() {
-things.push([500,100,8,Math.random() * 40 - 20,Math.random() * 80]);
+things.push([500,100,8,Math.random() * 40 - 20,Math.random() * 80, 0, 0, 0]);
 }
 tick();
 </script>
