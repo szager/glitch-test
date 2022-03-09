@@ -8,7 +8,7 @@ a
 background-color: red;
 }
 #canvas{
-background-color: brown;
+background-color: white;
 }
 </style>
 </head>
@@ -34,7 +34,7 @@ function tick() {
  function drawparticle(object) {
   ctx.beginPath();
   ctx.arc(object[0], object[1], object[2] / 2, 0, Math.PI * 2);
-  ctx.fillStyle="blue";
+  ctx.fillStyle="skyblue";
   ctx.fill();
   ctx.closePath();
  }
@@ -59,19 +59,12 @@ function collision(a,b) {
    a[5] += dx / d * 4;
    a[6] += dy / d * 4;
    a[7] += 1;
-   //ctx.beginPath();
-   //ctx.strokeStyle = "blue";
-   //ctx.lineWidth = String(a[2]);
-   //ctx.moveTo(a[0], a[1]);
-   //ctx.lineTo(b[0], b[1]);
-   //ctx.stroke();
-   //ctx.closePath();
  } 
  if(d > 1 && d < a[2] * 2 + b[2] * 2) {
-   a[5] -= dx / d / 2;
-   a[6] -= dy / d / 2;
+   a[5] -= dx / d / 4;
+   a[6] -= dy / d / 4;
    ctx.beginPath();
-   ctx.strokeStyle = "lightblue";
+   ctx.strokeStyle = "skyblue";
    ctx.lineWidth = String(a[2] / 4);
    ctx.moveTo(a[0], a[1]);
    ctx.lineTo(b[0], b[1]);
@@ -80,7 +73,7 @@ function collision(a,b) {
  }
  }
 function update(object) {
- object[4] += 2;
+ object[4] += 1;
  object[5] = object[3] / 4;
  object[6] = object[4] / 4;
  object[7] = 0.25;
