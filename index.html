@@ -41,8 +41,8 @@ function tick() {
  ctx.clearRect(0,0,canvas.width,canvas.height);
  ctx.fillStyle="gray";
  ctx.fillRect(490, 0, 20, 100);
- things.forEach(idklmao => drawparticle(idklmao));
  things.forEach(idklmao => update(idklmao));
+ things.forEach(idklmao => drawparticle(idklmao));
  moveEach();
  requestAnimationFrame(tick);
 }
@@ -103,6 +103,11 @@ if(object[3] + object[0] < object[2]) {
   object[3] *= -0,5;
   object[0] = object[2];
   object[4] *= 0.5;
+ }
+if(object[4] + object[1] < object[2]) {
+  object[4] *= -0,5;
+  object[1] = object[2];
+  object[3] *= 0.5;
  }
  object[0] += object[3];
  object[1] += object[4];
