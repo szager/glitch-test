@@ -41,6 +41,7 @@ function tick() {
  ctx.clearRect(0,0,canvas.width,canvas.height);
  ctx.fillStyle="gray";
  ctx.fillRect(490, 0, 20, 100);
+ ctx.fillRect(200, 200, 200, 10);
  things.forEach(idklmao => update(idklmao));
  things.forEach(idklmao => drawparticle(idklmao));
  moveEach();
@@ -55,8 +56,8 @@ function collision(a,b) {
 
    a[5] += b[3];
    a[6] += b[4];
-   a[5] += dx / d * 2;
-   a[6] += dy / d * 2;
+   a[5] += dx / d * 4;
+   a[6] += dy / d * 4;
    a[7] += 1;
    //ctx.beginPath();
    //ctx.strokeStyle = "blue";
@@ -67,8 +68,8 @@ function collision(a,b) {
    //ctx.closePath();
  } 
  if(d > 1 && d < a[2] * 2 + b[2] * 2) {
-   a[5] -= dx / d / 5;
-   a[6] -= dy / d / 5;
+   a[5] -= dx / d / 2;
+   a[6] -= dy / d / 2;
    ctx.beginPath();
    ctx.strokeStyle = "lightblue";
    ctx.lineWidth = String(a[2] / 4);
@@ -95,9 +96,9 @@ function move(object) {
   object[3] *= 0.5;
  }
   
- if(object[4] + object[1] > canvas.height - object[2] && object[0] + object[1] < 600 && object[0] + object[1] > 400) {
+ if(object[1] < 200 + object[2] && object[4] + object[1] > 200 - object[2] && object[0] + object[1] < 600 && object[0] + object[1] > 400) {
   object[4] *= -0.5;
-  object[1] = canvas.height - object[2];
+  object[1] = 200 - object[2];
   object[3] *= 0.5;
  }
   
