@@ -43,8 +43,9 @@ function collision(a,b) {
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
  if(d > 0 && d < a[2] * 2) {
-   //a[4] += dy / d;
-   //a[3] += dx / d;
+   a[5] += dy / d;
+   a[6] += dx / d;
+   a[6] += 1;
    //ctx.beginPath();
    //ctx.strokeStyle = "blue";
    //ctx.lineWidth = String(a[2]);
@@ -53,12 +54,17 @@ function collision(a,b) {
    //ctx.stroke();
    //ctx.closePath();
  }
-  if(d > 0 && d < a[2] * 2) {
+  if(d > 0 && d < a[2] + b[2]) {
    a[5] += b[3];
    a[6] += b[4];
-   a[6] -= dy / d;
-   a[5] -= dx / d;
    a[7] += 1;
+   ctx.beginPath();
+   ctx.strokeStyle = "blue";
+   ctx.lineWidth = String(a[2]);
+   ctx.moveTo(a[0], a[1]);
+   ctx.lineTo(b[0], b[1]);
+   ctx.stroke();
+   ctx.closePath();
  }
 }
 function update(object) {
@@ -73,17 +79,17 @@ function update(object) {
 }
 function move(object) {
  if(object[4] + object[1] > canvas.height - object[2]) {
-  object[4] *= 0;
+  object[4] *= -0.5;
   object[1] = canvas.height - object[2];
   object[3] *= 0.5;
  }
  if(object[3] + object[0] > canvas.width - object[2]) {
-  object[3] *= 0;
+  object[3] *= -0.5;
   object[0] = canvas.width - object[2];
   object[4] *= 0.5;
  }
 if(object[3] + object[0] < object[2]) {
-  object[3] *= 0;
+  object[3] *= -0,5;
   object[0] = object[2];
   object[4] *= 0.5;
  }
