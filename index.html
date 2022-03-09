@@ -45,7 +45,6 @@ function collision(a,b) {
  if(d > 0 && d < a[2] * 2) {
    a[5] += dy / d;
    a[6] += dx / d;
-   a[6] += 1;
    //ctx.beginPath();
    //ctx.strokeStyle = "blue";
    //ctx.lineWidth = String(a[2]);
@@ -102,7 +101,7 @@ if(object[3] + object[0] < object[2]) {
  ctx.closePath();
 }
 function addcircle() {
-things.push([500,100,8,Math.random() * 40 - 20,Math.random() * 80, 0, 0, 0]);
+things.push([500,100,8,Math.random() * 20 - 10,Math.random() * 40 + 20, 0, 0, 0]);
 }
 tick();
 </script>
