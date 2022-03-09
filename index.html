@@ -8,7 +8,7 @@ a
 background-color: red;
 }
 #canvas{
-background-color: white;
+outline-color: red;
 }
 </style>
 </head>
@@ -61,19 +61,19 @@ function collision(a,b) {
    a[7] += 1;
  } 
  if(d > 1 && d < a[2] * 2 + b[2] * 2) {
-   a[5] -= dx / d / 4;
-   a[6] -= dy / d / 4;
+   //a[5] -= dx / d / 4;
+   //a[6] -= dy / d / 4;
    ctx.beginPath();
    ctx.strokeStyle = "gray";
    ctx.lineWidth = String(a[2] / 4);
    ctx.moveTo(a[0], a[1]);
    ctx.lineTo(b[0], b[1]);
-   ctx.stroke();
+   //ctx.stroke();
    ctx.closePath();
  }
  }
 function update(object) {
- object[4] += 1;
+ //object[4] += 1;
  object[5] = object[3] / 4;
  object[6] = object[4] / 4;
  object[7] = 0.25;
@@ -101,12 +101,12 @@ function move(object) {
   object[4] *= 0.5;
  }
 if(object[3] + object[0] < object[2]) {
-  object[3] *= -0,5;
+  object[3] *= -0.5;
   object[0] = object[2];
   object[4] *= 0.5;
  }
 if(object[4] + object[1] < object[2]) {
-  object[4] *= -0,5;
+  object[4] *= -0.5;
   object[1] = object[2];
   object[3] *= 0.5;
  }
