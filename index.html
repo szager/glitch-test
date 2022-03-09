@@ -33,11 +33,11 @@ function tick() {
  }
  function drawparticle(object) {
   ctx.beginPath();
-  ctx.arc(object[0], object[1], object[2] / 2, 0, Math.PI * 2);
-  ctx.fillStyle="red";
+  ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
+  if(object[8] == false) {ctx.fillStyle="skyblue";
   ctx.fill();
   ctx.closePath();
- }
+
  ctx.clearRect(0,0,canvas.width,canvas.height);
  ctx.fillStyle="gray";
  ctx.fillRect(490, 0, 20, 100);
@@ -64,8 +64,8 @@ function collision(a,b) {
    a[5] -= dx / d / 4;
    a[6] -= dy / d / 4;
    ctx.beginPath();
-   ctx.strokeStyle = "gray";
-   ctx.lineWidth = String(a[2] / 4);
+   ctx.strokeStyle = "skyblue";
+   ctx.lineWidth = String(a[2] * 2);
    ctx.moveTo(a[0], a[1]);
    ctx.lineTo(b[0], b[1]);
    ctx.stroke();
@@ -114,7 +114,7 @@ if(object[4] + object[1] < object[2]) {
  object[1] += object[4];
 }
 function addcircle() {
-things.push([500,100,20,Math.random() * 20 - 10,Math.random() * 40 + 20, 0, 0, 0]);
+things.push([500,100,20,Math.random() * 20 - 10,Math.random() * 40 + 20, 0, 0, 0, false]);
 }
 tick();
 </script>
