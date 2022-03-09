@@ -31,9 +31,17 @@ function tick() {
  if(things.length < 500) {
    addcircle();
  }
+ function drawparticle(object) {
+  ctx.beginPath();
+  ctx.arc(object[0], object[1], object[2] / 2, 0, Math.PI * 2);
+  ctx.fillStyle="blue";
+  ctx.fill();
+  ctx.closePath();
+ }
  ctx.clearRect(0,0,canvas.width,canvas.height);
  ctx.fillStyle="gray";
  ctx.fillRect(490, 0, 20, 100);
+ things.forEach(idklmao => drawparticle(idklmao));
  things.forEach(idklmao => update(idklmao));
  moveEach();
  requestAnimationFrame(tick);
@@ -43,12 +51,12 @@ function collision(a,b) {
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
 
-  if(d > 1 && d < a[2] + b[2]) {
+  if(d > 2 && d < a[2] + b[2]) {
 
    a[5] += b[3];
    a[6] += b[4];
-   a[5] += dx / d;
-   a[6] += dy / d;
+   a[5] += dx / d * 2;
+   a[6] += dy / d * 2;
    a[7] += 1;
    //ctx.beginPath();
    //ctx.strokeStyle = "blue";
@@ -58,15 +66,15 @@ function collision(a,b) {
    //ctx.stroke();
    //ctx.closePath();
  } 
- if(d > 0 && d < a[2] * 2) {
-   //a[5] += dx / d / 5;
-   //a[6] += dy / d / 5;
+ if(d > 1 && d < a[2] * 2 + b[2] * 2) {
+   a[5] -= dx / d / 5;
+   a[6] -= dy / d / 5;
    ctx.beginPath();
-   ctx.strokeStyle = "blue";
-   ctx.lineWidth = String(a[2] * 2);
+   ctx.strokeStyle = "lightblue";
+   ctx.lineWidth = String(a[2] / 4);
    ctx.moveTo(a[0], a[1]);
    ctx.lineTo(b[0], b[1]);
-   //ctx.stroke();
+   ctx.stroke();
    ctx.closePath();
  }
  }
@@ -98,11 +106,6 @@ if(object[3] + object[0] < object[2]) {
  }
  object[0] += object[3];
  object[1] += object[4];
- ctx.beginPath();
- ctx.arc(object[0], object[1], object[2] / 2, 0, Math.PI * 2);
- ctx.fillStyle="blue";
- ctx.fill();
- ctx.closePath();
 }
 function addcircle() {
 things.push([500,100,8,Math.random() * 20 - 10,Math.random() * 40 + 20, 0, 0, 0]);
