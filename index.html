@@ -40,7 +40,7 @@ function drawparticle(object) {
   //ctx.closePath();
  }
 function tick() {
- if(things.length < 100) {
+ if(things.length < 200) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -65,7 +65,9 @@ if(d < a[2] + b[2] * 2) {
   ctx.beginPath();
   ctx.lineWidth = String((a[2] + b[2]));
   ctx.lineCap = "round";
+  if(d > 1) {
   ctx.strokeStyle = "skyblue";
+  } else ctx.strokeStyle = "lightblue";
   ctx.moveTo(a[0], a[1]);
   ctx.lineTo(b[0], b[1]);
   ctx.stroke();
