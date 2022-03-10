@@ -26,10 +26,7 @@ const ctx = canvas.getContext("2d");
 var things = [];
 function attraction(x) {
   let y = 0;
-  y = (100 / x) - 1;
-  if(y < -0.5) {
-    y = (-200 / x);
-  }
+  y = (100 / x);
   return y;
 }
 function moveEach() {
