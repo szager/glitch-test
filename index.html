@@ -33,16 +33,16 @@ function attraction(x) {
 function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
-function tick() {
- if(things.length < 200) {
-   addcircle();
- }
- function drawparticle(object) {
+function drawparticle(object) {
   ctx.beginPath();
-  ctx.arc(object[0], object[1], object[2] / 2, 0, Math.PI * 2);
+  ctx.arc(object[0], object[1], object[2] / 4, 0, Math.PI * 2);
   ctx.fillStyle="red";
   ctx.fill();
   ctx.closePath();
+ }
+function tick() {
+ if(things.length < 200) {
+   addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
  ctx.fillStyle="gray";
@@ -62,8 +62,14 @@ function collision(a,b) {
    a[5] += (dx / d) * attraction(d / a[2] * 20);
    a[6] += (dy / d) * attraction(d / a[2] * 20);
  }
-if(d < 100) {
-  ctx.beginPath
+if(d < a[2] + b[2]) {
+  ctx.beginPath();
+  ctx.lineWidth = String((a[2] + b[2]) / 24);
+  ctx.strokeStyle = "gray";
+  ctx.moveTo(a[0], a[1]);
+  ctx.lineTo(b[0], b[1]);
+  ctx.stroke();
+  ctx.closePath();
 }
  }
 function update(object) {
