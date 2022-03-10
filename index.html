@@ -27,8 +27,11 @@ var things = [];
 function attraction(x) {
   let y = 0;
   y = (50 / x) - 1;
-  if(y < 0) {
+  if(y < -0.2) {
     y = 0;
+  }
+  if(y < 0) {
+    y *= 10;
   }
   return y;
 }
@@ -61,16 +64,12 @@ function collision(a,b) {
  let d = Math.sqrt(dy * dy + dx * dx);
 
   if(d >= 1) {
-
-   //a[5] += b[3];
-   //a[6] += b[4];
    a[5] += (dx / d) * attraction(d);
    a[6] += (dy / d) * attraction(d);
-   //a[7] += 1;
  }
  }
 function update(object) {
- //object[4] += 1;
+ object[4] += 1;
  object[5] = object[3];
  object[6] = object[4];
 
@@ -104,7 +103,7 @@ if(object[4] + object[1] < object[2]) {
  object[1] += object[4];
 }
 function addcircle() {
-things.push([500,100,20,Math.random() * 20 - 10,Math.random() * 10 + 5, 0, 0, 0]);
+things.push([500,100,20,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0]);
 }
 tick();
 </script>
