@@ -33,11 +33,11 @@ function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function drawparticle(object) {
-  //ctx.beginPath();
-  //ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
-  //ctx.fillStyle="skyblue";
-  //ctx.fill();
-  //ctx.closePath();
+  ctx.beginPath();
+  ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
+  ctx.fillStyle="#" + (parseInt(object[7], 10).toString(16)+parseInt(object[7], 16).toString(16)+"ff").padStart(6,"0");
+  ctx.fill();
+  ctx.closePath();
  }
 function tick() {
  if(things.length < 200) {
@@ -61,13 +61,13 @@ function collision(a,b) {
    a[5] += (dx / d) * attraction(d / a[2] * 20);
    a[6] += (dy / d) * attraction(d / a[2] * 20);
  }
-if(d < a[2] + b[2] * 2) {
+if(d < a[2] + b[2] * 2 && d > 1) {
+  a[7] += 1;
+  b[7] += 1;
   ctx.beginPath();
   ctx.lineWidth = String((a[2] + b[2]));
   ctx.lineCap = "round";
-  if(d > 1) {
   ctx.strokeStyle = "skyblue";
-  } else ctx.strokeStyle = "lightblue";
   ctx.moveTo(a[0], a[1]);
   ctx.lineTo(b[0], b[1]);
   ctx.stroke();
@@ -75,6 +75,7 @@ if(d < a[2] + b[2] * 2) {
 }
  }
 function update(object) {
+ object[7] = 0;
  object[4] += 1;
  object[5] = object[3];
  object[6] = object[4];
