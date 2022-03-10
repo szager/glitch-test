@@ -27,8 +27,8 @@ var things = [];
 function attraction(x) {
   let y = 0;
   y = (50 / x) - 1;
-  if(y < 0) {
-    y = 0;
+  if(y < 1) {
+    y /= x;
   }
   return y;
 }
@@ -104,6 +104,7 @@ things.push([500,100,20,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0
 }
 document.addEventListener("click", function(event) {
   things.forEach(thing => thing[4] += Math.random() * 50 - 25);
+  things.forEach(thing => thing[3] += Math.random() * 50 - 25);
 });
 tick();
 </script>
