@@ -26,7 +26,10 @@ const ctx = canvas.getContext("2d");
 var things = [];
 function attraction(x) {
   let y = 0;
-  y = (50 / x) - 1;
+  y = (100 / x) - 1;
+  if(y < -0.5) {
+    y = (-200 / x);
+  }
   return y;
 }
 function moveEach() {
@@ -35,7 +38,7 @@ function moveEach() {
 function drawparticle(object) {
   ctx.beginPath();
   ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
-  ctx.fillStyle="#" + (parseInt(object[7], 10).toString(16)+parseInt(object[7], 16).toString(16)+"ff").padStart(6,"0");
+  ctx.fillStyle="lightblue";
   ctx.fill();
   ctx.closePath();
  }
@@ -47,8 +50,9 @@ function tick() {
  ctx.fillStyle="gray";
  ctx.fillRect(490, 0, 20, 100);
  ctx.fillRect(200, 200, 200, 10);
- things.forEach(idklmao => update(idklmao));
  things.forEach(idklmao => drawparticle(idklmao));
+ things.forEach(idklmao => update(idklmao));
+
  moveEach();
  requestAnimationFrame(tick);
 }
@@ -67,7 +71,7 @@ if(d < a[2] + b[2] * 2 && d > 1) {
   ctx.beginPath();
   ctx.lineWidth = String((a[2] + b[2]));
   ctx.lineCap = "round";
-  ctx.strokeStyle = "skyblue";
+  ctx.strokeStyle = "blue";
   ctx.moveTo(a[0], a[1]);
   ctx.lineTo(b[0], b[1]);
   ctx.stroke();
