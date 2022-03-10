@@ -28,7 +28,7 @@ function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function tick() {
- if(things.length < 500) {
+ if(things.length < 200) {
    addcircle();
  }
  function drawparticle(object) {
@@ -56,20 +56,20 @@ function collision(a,b) {
 
    a[5] += b[3];
    a[6] += b[4];
-   a[5] += dx / d * 4;
-   a[6] += dy / d * 4;
+   a[5] += dx / d * (a[2] + b[2]);
+   a[6] += dy / d * (a[2] + b[2]);
    a[7] += 1;
  } 
  if(d > 1 && d < a[2] * 2 + b[2] * 2) {
-   a[5] -= dx / d / 4;
-   a[6] -= dy / d / 4;
-   ctx.beginPath();
-   ctx.strokeStyle = "gray";
-   ctx.lineWidth = String(a[2] / 4);
-   ctx.moveTo(a[0], a[1]);
-   ctx.lineTo(b[0], b[1]);
-   ctx.stroke();
-   ctx.closePath();
+   a[5] -= dx / d / 2;
+   a[6] -= dy / d / 2;
+   //ctx.beginPath();
+   //ctx.strokeStyle = "gray";
+   //ctx.lineWidth = String(a[2] / 4);
+   //ctx.moveTo(a[0], a[1]);
+   //ctx.lineTo(b[0], b[1]);
+   //ctx.stroke();
+   //ctx.closePath();
  }
  }
 function update(object) {
