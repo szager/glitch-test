@@ -34,10 +34,7 @@ function tick() {
  function drawparticle(object) {
   ctx.beginPath();
   ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
-  if(object[8] == false) {
-    ctx.fillStyle = "skyblue";
-  } else {ctx.fillStyle = "lightblue";
-    }
+  ctx.fillStyle = "skyblue";
   ctx.fill();
   ctx.closePath();
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -65,7 +62,6 @@ function collision(a,b) {
  if(d > 1 && d < a[2] * 2 + b[2] * 2) {
    a[5] -= dx / d / 4;
    a[6] -= dy / d / 4;
-   a[8] = false;
    ctx.beginPath();
    ctx.strokeStyle = "skyblue";
    ctx.lineWidth = String(a[2] * 2);
@@ -118,7 +114,7 @@ if(object[4] + object[1] < object[2]) {
  object[1] += object[4];
 }
 function addcircle() {
-things.push([500,100,20,Math.random() * 20 - 10,Math.random() * 40 + 20, 0, 0, 0, false]);
+things.push([500,100,20,Math.random() * 20 - 10,Math.random() * 40 + 20, 0, 0, 0]);
 }
 tick();
 </script>
