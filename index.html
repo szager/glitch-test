@@ -26,22 +26,21 @@ const ctx = canvas.getContext("2d");
 var things = [];
 function attraction(x) {
   let y = 0;
-  y = (100 / x) - 1;
-  y /= (x + Math.abs(y));
+  y = (50 / x) - 1;
   return y;
 }
 function moveEach() {
   things.forEach(idklmao => move(idklmao));
 }
 function drawparticle(object) {
-  ctx.beginPath();
-  ctx.arc(object[0], object[1], object[2] / 4, 0, Math.PI * 2);
-  ctx.fillStyle="red";
-  ctx.fill();
-  ctx.closePath();
+  //ctx.beginPath();
+  //ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
+  //ctx.fillStyle="skyblue";
+  //ctx.fill();
+  //ctx.closePath();
  }
 function tick() {
- if(things.length < 200) {
+ if(things.length < 500) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -64,8 +63,8 @@ function collision(a,b) {
  }
 if(d < a[2] + b[2]) {
   ctx.beginPath();
-  ctx.lineWidth = String((a[2] + b[2]) / 24);
-  ctx.strokeStyle = "gray";
+  ctx.lineWidth = String((a[2] + b[2]));
+  ctx.strokeStyle = "skyblue";
   ctx.moveTo(a[0], a[1]);
   ctx.lineTo(b[0], b[1]);
   ctx.stroke();
@@ -107,7 +106,7 @@ if(object[4] + object[1] < object[2]) {
  object[1] += object[4];
 }
 function addcircle() {
-things.push([500,100,20,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0]);
+things.push([500,100,10,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0]);
 }
 document.addEventListener("click", function(event) {
   things.forEach(thing => thing[4] += Math.random() * 50 - 25);
