@@ -40,7 +40,7 @@ function drawparticle(object) {
   //ctx.closePath();
  }
 function tick() {
- if(things.length < 500) {
+ if(things.length < 100) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -57,13 +57,14 @@ function collision(a,b) {
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
 
-  if(d >= 1) {
+  if(d >= 1 && d < a[2] + b[2]) {
    a[5] += (dx / d) * attraction(d / a[2] * 20);
    a[6] += (dy / d) * attraction(d / a[2] * 20);
  }
-if(d < a[2] + b[2]) {
+if(d < a[2] + b[2] * 2) {
   ctx.beginPath();
   ctx.lineWidth = String((a[2] + b[2]));
+  ctx.lineCap = "round";
   ctx.strokeStyle = "skyblue";
   ctx.moveTo(a[0], a[1]);
   ctx.lineTo(b[0], b[1]);
