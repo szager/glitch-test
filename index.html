@@ -104,7 +104,7 @@ function addcircle() {
 things.push([500,100,10,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0]);
 }
 document.addEventListener("click", function(event) {
-  things.forEach(thing => {thing[4] += Math.random() * 50 - 25; thing[3] += Math.random() * 50 - 25});
+  things.forEach(thing => {thing[0] = thing[0] / 4 + ((canvas.width / 8) * 3);thing[1] = thing[1] / 4 + ((canvas.height / 8) * 3);});
 });
 tick();
 </script>
