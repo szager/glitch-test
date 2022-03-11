@@ -23,11 +23,11 @@ function make_color() {
   let letters = '0123456789ABCDEF';
   let color = '#';
   let blue = Math.random() * 16;
-  let green = Math.random() * red;
+  let green = Math.random() * blue;
   let red = Math.random() * green;
   color += letters[Math.round(red)];
   color += letters[Math.round(green)];
-  color += letters[Math.round(];
+  color += letters[Math.round(blue)];
   return color;
 }
 alert("w");
