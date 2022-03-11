@@ -49,7 +49,7 @@ function moveEach() {
 function drawparticle(object) {
   ctx.beginPath();
   ctx.arc(object[0], object[1], object[2], 0, Math.PI * 2);
-  ctx.fillStyle=make_color();
+  ctx.fillStyle=object[8];
   ctx.fill();
   ctx.closePath();
  }
@@ -78,7 +78,9 @@ function collision(a,b) {
  }
  }
 function update(object) {
- object[4] += 0.1;
+ object[4] += 0.5;
+ object[4] *= 0.98;
+ object[3] *= 0.99;
  object[5] = object[3];
  object[6] = object[4];
 
@@ -112,7 +114,7 @@ if(object[4] + object[1] < object[2]) {
  object[1] += object[4];
 }
 function addcircle() {
-things.push([500,100,10,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0]);
+things.push([500,100,10,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0, make_color()]);
 }
 document.addEventListener("click", function(event) {
   things = [];
