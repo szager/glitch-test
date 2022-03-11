@@ -73,8 +73,8 @@ function collision(a,b) {
  let d = Math.sqrt(dy * dy + dx * dx);
 
   if(d >= 1) {
-   a[5] += (dx / d) * attraction(d / a[2] * 20);
-   a[6] += (dy / d) * attraction(d / a[2] * 20);
+   a[5] += (dx / d) * attraction(d / (a[2] + b[2]) * 20);
+   a[6] += (dy / d) * attraction(d / (a[2] + b[2]) * 20);
  }
  }
 function update(object) {
@@ -114,7 +114,7 @@ if(object[4] + object[1] < object[2]) {
  object[1] += object[4];
 }
 function addcircle() {
-things.push([500,100,10,Math.random() * 5 - 2.5,Math.random() * 5 + 2.5, 0, 0, 0, make_color()]);
+things.push([500,100,Math.random() * 5 + 5,Math.random() * 5 - 2.5,Math.random() * 5 + 5, 0, 0, 0, make_color()]);
 }
 document.addEventListener("click", function(event) {
   things = [];
