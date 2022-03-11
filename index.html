@@ -22,9 +22,9 @@ a
 function make_color() {
   let letters = '0123456789ABCDEF';
   let color = '#';
+  color += letters[Math.round(Math.random() * 8)];
   color += letters[Math.round(Math.random() * 16)];
-  color += letters[Math.round(Math.random() * 16)];
-  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 8 + 8)];
   return color;
 }
 alert("w");
@@ -75,7 +75,7 @@ function collision(a,b) {
  }
  }
 function update(object) {
- object[4] += 1;
+ object[4] += 0.1;
  object[5] = object[3];
  object[6] = object[4];
 
