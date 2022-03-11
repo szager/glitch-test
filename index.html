@@ -73,8 +73,8 @@ function collision(a,b) {
  let d = Math.sqrt(dy * dy + dx * dx);
 
   if(d >= 1) {
-   a[5] += (dx / d) * attraction(d / (a[2] + b[2]) * 20);
-   a[6] += (dy / d) * attraction(d / (a[2] + b[2]) * 20);
+   a[5] += (dx / d) * (attraction(d / (a[2] + b[2]) * 20)*b[2]/a[2]);
+   a[6] += (dy / d) * (attraction(d / (a[2] + b[2]) * 20)*b[2]/a[2]);
  }
  }
 function update(object) {
