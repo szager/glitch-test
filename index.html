@@ -22,9 +22,9 @@ a
 function make_color() {
   let letters = '0123456789ABCDEF';
   let color = '#';
-  let green = Math.random() * 16;
-  let red = Math.random() * green;
-  let blue = Math.random() * (16 - green) + green;
+  let red = Math.random() * 16;
+  let blue = Math.random() * (16 - red) + red;
+  let green = Math.random() * blue;
   color += letters[Math.round(red)];
   color += letters[Math.round(green)];
   color += letters[Math.round(blue)];
