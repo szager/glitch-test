@@ -79,17 +79,17 @@ function collision(a,b) {
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
 
-  if(d >= 1 && d < 50) {
-   a[5] += (dx * 10 / (Math.pow(d, 2) ));
-   a[6] += (dy * 10 / (Math.pow(d, 2) - 1)); 
+  if(d >= 1 && d < 19) {
+   a[5] += dx * (1 - (d / 20));
+   a[6] += dy * (1 - (d / 20)); 
  }
  }
 function update(object) {
- object[4] += 0.5;
- object[4] *= 0.98;
- object[3] *= 0.98;
- object[3] += Math.random() - .5;
- object[4] += Math.random() - .5;
+ object[4] += .5;
+ object[4] *= .95;
+ object[3] *= .95;
+ //object[3] += Math.random() / 2 - .25;
+ //object[4] += Math.random() / 2 - .25;
  object[5] = object[3];
  object[6] = object[4];
 
