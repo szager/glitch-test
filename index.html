@@ -61,7 +61,7 @@ function drawparticle(object) {
   ctx.closePath();
  }
 function tick() {
- if(things.length < 200) {
+ if(things.length < 500) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -80,7 +80,7 @@ function collision(a,b) {
  let d = Math.sqrt(dy * dy + dx * dx);
  let idklmao = a[2] + b[2];
 
-  if(d >= 1 && d < idklmao) {
+  if(d >= 1 && d < idklmao * 1.1) {
    a[5] += dx * (1 - (d / idklmao));
    a[6] += dy * (1 - (d / idklmao)); 
  }
@@ -127,7 +127,7 @@ function addcircle() {
   things.push([ Math.random() * canvas.width, Math.random() * canvas.height, 5,Math.random() * 5 - 2.5,Math.random() * 5 + 5, 0, 0, 0, make_color()]);
 }
 document.addEventListener("click", function(event) {
-  things.forEach(thing => thing[2] = 20);
+  things.forEach(thing => thing[2] = 10);
 });
 tick();
 </script>
