@@ -22,10 +22,21 @@ a
 function make_color() {
   let letters = '0123456789ABCDEF';
   let color = '#';
-  let an_integer = Math.floor(Math.random() * 6);
-  color += "0";
-  color += "f";
-  color += letters[Math.round(Math.random() * 16)];
+  //let an_integer = Math.floor(Math.random() * 6);
+  var a = function () {color += "0";},
+    b = function () {color += "f";},
+    c = function () {color += letters[Math.round(Math.random() * 16)];},
+    array = [a, b, c];
+
+  array = array.map(function (a, i, o) {
+    var j = (Math.random() * (o.length - i) | 0) + i,
+        t = o[j];
+    o[j] = a;
+    return t;
+  });
+
+array.forEach(function (a) { a(); });
+
   //let blue = Math.random() * 16;
   //let green = Math.random() * (16 - blue) + blue;
   //let red = Math.random() * blue;
