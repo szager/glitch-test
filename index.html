@@ -22,17 +22,17 @@ a
 function make_color() {
   let letters = '0123456789ABCDEF';
   let color = '#';
-  let an_integer = Math.floor(Math.random() * 6);
-  let some_value = Math.random() * 16;
-  color += letters[Math.round(some_value)];
+  //let an_integer = Math.floor(Math.random() * 6);
+  //let some_value = Math.random() * 16;
+  //color += letters[Math.round(some_value)];
   //color += "f";
   //color += "0";
-  let red = Math.random() * 16;
-  //let green = Math.random() * 16;
-  //let blue = Math.random() * 16;
-  //color += letters[Math.round(red)];
-  //color += letters[Math.round(green)];
-  //color += letters[Math.round(blue)];
+  let blue = Math.random() * 16;
+  let green = Math.random() * (16 - blue) + blue;
+  let red = Math.random() * blue;
+  color += letters[Math.round(red)];
+  color += letters[Math.round(green)];
+  color += letters[Math.round(blue)];
   return color;
 }
 alert("w");
