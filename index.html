@@ -78,18 +78,19 @@ function collision(a,b) {
  let dx = a[0] + a[3] - b[0] - b[3];
  let dy = a[1] + a[4] - b[1] - b[4];
  let d = Math.sqrt(dy * dy + dx * dx);
+ let idklmao = a[2] + b[2];
 
-  if(d >= 1 && d < 19) {
-   a[5] += dx * (1 - (d / 20));
-   a[6] += dy * (1 - (d / 20)); 
+  if(d >= 1 && d < idklmao) {
+   a[5] += dx * (1 - (d / idklmao));
+   a[6] += dy * (1 - (d / idklmao)); 
  }
  }
 function update(object) {
  object[4] += .5;
  object[4] *= .95;
  object[3] *= .95;
- //object[3] += Math.random() / 2 - .25;
- //object[4] += Math.random() / 2 - .25;
+ object[3] += Math.random() / 2 - .25;
+ object[4] += Math.random() / 2 - .25;
  object[5] = object[3];
  object[6] = object[4];
 
@@ -99,34 +100,34 @@ function update(object) {
 }
 function move(object) {
  if(object[4] + object[1] > canvas.height - object[2]) {
-  object[4] *= -0.5;
+  object[4] *= -.5;
   object[1] = canvas.height - object[2];
-  object[3] *= 0.5;
+  object[3] *= .5;
  }
   
  if(object[3] + object[0] > canvas.width - object[2]) {
-  object[3] *= -0.5;
+  object[3] *= -.5;
   object[0] = canvas.width - object[2];
-  object[4] *= 0.5;
+  object[4] *= .5;
  }
 if(object[3] + object[0] < object[2]) {
-  object[3] *= -0.5;
+  object[3] *= -.5;
   object[0] = object[2];
-  object[4] *= 0.5;
+  object[4] *= .5;
  }
 if(object[4] + object[1] < object[2]) {
-  object[4] *= -0.5;
+  object[4] *= -.5;
   object[1] = object[2];
-  object[3] *= 0.5;
+  object[3] *= .5;
  }
  object[0] += object[3];
  object[1] += object[4];
 }
 function addcircle() {
-  things.push([ Math.random() * canvas.width, Math.random() * canvas.height, 10,Math.random() * 5 - 2.5,Math.random() * 5 + 5, 0, 0, 0, make_color()]);
+  things.push([ Math.random() * canvas.width, Math.random() * canvas.height, 5,Math.random() * 5 - 2.5,Math.random() * 5 + 5, 0, 0, 0, make_color()]);
 }
 document.addEventListener("click", function(event) {
-  things = [];
+  things.forEach(thing => thing[2] = 20);
 });
 tick();
 </script>
