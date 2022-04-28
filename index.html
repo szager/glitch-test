@@ -78,11 +78,11 @@ function collision(a,b) {
  let dx = a[0] - b[0];
  let dy = a[1] - b[1];
  let d = Math.sqrt(dy * dy + dx * dx);
- let idklmao = a[2] + b[2] + 2;
+ let idklmao = a[2] + b[2] + 1;
 
   if(d > 0 && d < idklmao) {
    a[5] -= (dx * (d - idklmao) / d) / 2;
-   a[6] -= (dy * (d - idklmao) / d) / 2; 
+   a[6] -= (dy * (d - idklmao) / d) / 2;
  }
  }
 function update(object) {
