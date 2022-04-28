@@ -78,7 +78,7 @@ function collision(a,b) {
  let dx = a[0] - b[0];
  let dy = a[1] - b[1];
  let d = Math.sqrt(dy * dy + dx * dx);
- let idklmao = a[2] + b[2] + 5;
+ let idklmao = a[2] + b[2] + 2;
 
   if(d > 0 && d < idklmao) {
    a[5] -= (dx * (d - idklmao) / d) / 2;
@@ -126,14 +126,14 @@ if(object[4] + object[1] < object[2]) {
 function addcircle() {
   things.push([ Math.random() * canvas.width, Math.random() * canvas.height, 5,Math.random() * 5 - 2.5,Math.random() * 5 + 5, 0, 0, 0, make_color()]);
 }
-document.addEventListener("click", function(event) {
-  things.forEach(thing => thing[2] = 10);
-  let x = e.clientX;
-  let y = e.clientY;
-  things.forEach(thing => collision(object,thing));
+document.addEventListener("click", function(e) {
+  let thing = [e.clientX, e.clientY, 200];
+  things.forEach(object => {
+   collision(object,thing);
+   object[2] = 10;
    object[3] = object[5];
    object[4] = object[6];
-  }
+  });
   
 });
 tick();
