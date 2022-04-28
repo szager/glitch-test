@@ -61,7 +61,7 @@ function drawparticle(object) {
   ctx.closePath();
  }
 function tick() {
- if(things.length < 500) {
+ if(things.length < 200) {
    addcircle();
  }
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -75,14 +75,14 @@ function tick() {
  requestAnimationFrame(tick);
 }
 function collision(a,b) {
- let dx = a[0] + a[3] - b[0] - b[3];
- let dy = a[1] + a[4] - b[1] - b[4];
+ let dx = a[0] - b[0];
+ let dy = a[1] - b[1];
  let d = Math.sqrt(dy * dy + dx * dx);
- let idklmao = a[2] + b[2];
+ let idklmao = a[2] + b[2] + 5;
 
-  if(d >= 1 && d < idklmao) {
-   a[5] += dx * (1 - (d / idklmao));
-   a[6] += dy * (1 - (d / idklmao)); 
+  if(d > 0 && d < idklmao) {
+   a[5] -= (dx * (d - idklmao) / d) / 2;
+   a[6] -= (dy * (d - idklmao) / d) / 2; 
  }
  }
 function update(object) {
@@ -128,6 +128,13 @@ function addcircle() {
 }
 document.addEventListener("click", function(event) {
   things.forEach(thing => thing[2] = 10);
+  let x = e.clientX;
+  let y = e.clientY;
+  things.forEach(thing => collision(object,thing));
+   object[3] = object[5];
+   object[4] = object[6];
+  }
+  
 });
 tick();
 </script>
