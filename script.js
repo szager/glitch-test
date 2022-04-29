@@ -14,12 +14,35 @@ class orbee {
     this.dx_next = this.dx;
     this.dy_next = this.dy;
     this.squishe = 1;
-    this.radius = 5;
+    this.radius = 3;
+    this.color = make_color();
   }
 }
 
 
 var orbeez = [new orbee()];
+
+
+var letters = '0123456789ABCDEF';
+var color = '#';
+var a = function () {color += "0";},
+    b = function () {color += "f";},
+    c = function () {color += letters[Math.round(Math.random() * 16)];},
+    array = [a, b, c];
+
+
+function make_color() {
+  color = '#';
+
+  array = array.map(function (a, i, o) {
+    let j = (Math.random() * (o.length - i) | 0) + i,
+        t = o[j];
+    o[j] = a;
+    return t;
+  });
+  array.forEach(function (a) { a(); });
+
+
 
 function tick() {
   
@@ -40,6 +63,7 @@ function tick() {
       let ly = orbie.y - cursor_y;
       let distance = Math.hypot(lx, ly);
       if (distance < 100) {
+        orbie.radius += (10 - orbie.radius) / 10;
         orbie.dx -= (lx / distance * (distance - 100)) / 3;
         orbie.dy -= (ly / distance * (distance - 100)) / 3;
       }
@@ -73,10 +97,10 @@ function tick() {
       let lx = orbie.x - other_orbie.x;
       let ly = orbie.y - other_orbie.y;
       let distance = Math.hypot(lx, ly);
-      if (distance < (orbie.radius + other_orbie.radius) * 5 && orbie != other_orbie) {
-        orbie.dx_next += other_orbie.dx * Math.max(1.1/(distance + 1) - .1, 0) ;
-        orbie.dy_next += other_orbie.dy * Math.max(1 + (1/(orbie.radius + other_orbie.radius))/(distance + 1) - .1, 0) ;
-        orbie.squishe += Math.max(1.5/(distance + 1) - .5, 0)
+      if (distance < (orbie.radius + other_orbie.radius + 2) * 5 && orbie != other_orbie) {
+        orbie.dx_next += other_orbie.dx * Math.max((1 + (1/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (1/(orbie.radius + other_orbie.radius + 2)), 0) ;
+        orbie.dy_next += other_orbie.dy * Math.max((1 + (1/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (1/(orbie.radius + other_orbie.radius + 2)), 0) ;
+        orbie.squishe += Math.max((1 + (1/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (1/(orbie.radius + other_orbie.radius + 2)), 0);
       }
     });
   });
@@ -108,7 +132,7 @@ function tick() {
     
     ctx.beginPath();
     ctx.arc(orbie.x, orbie.y, orbie.radius, 0, Math.PI * 2);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = orbie.color;
     ctx.fill();
     ctx.closePath();
     
