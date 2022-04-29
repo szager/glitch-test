@@ -11,6 +11,9 @@ class orbee {
     this.y = Math.random() * canvas.height;
     this.dx = Math.random() * 20 - 10;
     this.dy = Math.random() * 20 - 10;
+    this.dx_next = this.dx;
+    this.dy_next = this.dy;
+    this.squishe = 1;
     this.radius = 5;
   }
 }
@@ -28,6 +31,8 @@ function tick() {
   
   orbeez.forEach(orbie => {
     orbie.dy += 1;
+    orbie.dy *= 0.98;
+    orbie.dx *= 0.98;
     
     
     if (mouse_down) {
@@ -52,7 +57,20 @@ function tick() {
       let lx = orbie.x - other_orbie.x;
       let ly = orbie.y - other_orbie.y;
       let distance = Math.hypot(lx, ly);
-      if (distance < orbie.radius + other_orbie.radius) {
+      if (distance < orbie.radius + other_orbie.radius && orbie != other_orbie) {
+        orbie.dx -= (lx / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
+        orbie.dy -= (ly / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
+      }
+    });
+  });
+  
+  orbeez.forEach(orbie => {
+      orbeez.forEach(other_orbie => {
+      
+      let lx = orbie.x - other_orbie.x;
+      let ly = orbie.y - other_orbie.y;
+      let distance = Math.hypot(lx, ly);
+      if (distance < orbie.radius + other_orbie.radius && orbie != other_orbie) {
         orbie.dx -= (lx / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
         orbie.dy -= (ly / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
       }
@@ -84,7 +102,7 @@ function tick() {
     
     
     ctx.beginPath();
-    ctx.arc(orbie.x, orbie.y, 10, 0, Math.PI * 2);
+    ctx.arc(orbie.x, orbie.y, orbie.radius, 0, Math.PI * 2);
     ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
