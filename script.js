@@ -65,33 +65,38 @@ function tick() {
   });
   
   orbeez.forEach(orbie => {
+    orbie.dx_next = orbie.dx;
+    orbie.dy_next = orbie.dy;
+    orbie.squishe = 1;
       orbeez.forEach(other_orbie => {
       
       let lx = orbie.x - other_orbie.x;
       let ly = orbie.y - other_orbie.y;
       let distance = Math.hypot(lx, ly);
-      if (distance < orbie.radius + other_orbie.radius && orbie != other_orbie) {
-        orbie.dx -= (lx / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
-        orbie.dy -= (ly / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
+      if (distance < (orbie.radius + other_orbie.radius) * 5 && orbie != other_orbie) {
+        orbie.dx_next += other_orbie.dx * Math.max(1.1/(distance + 1) - .1, 0) ;
+        orbie.dy_next += other_orbie.dy * Math.max(1 + (1/(orbie.radius + other_orbie.radius))/(distance + 1) - .1, 0) ;
+        orbie.squishe += Math.max(1.5/(distance + 1) - .5, 0)
       }
     });
   });
   
   orbeez.forEach(orbie => {
-    
+    orbie.dy = orbie.dy_next / orbie.squishe;
+    orbie.dx = orbie.dx_next / orbie.squishe;
     //wall collision
-    if(orbie.y + orbie.dy > canvas.height) {
-      orbie.y = canvas.height;
+    if(orbie.y + orbie.dy > canvas.height - orbie.radius) {
+      orbie.y = canvas.height - orbie.radius;
       orbie.dy *= -0.5;
       orbie.dx *= 0.8;
     }
-    if(orbie.x + orbie.dx > canvas.width) {
-      orbie.x = canvas.width;
+    if(orbie.x + orbie.dx > canvas.width - orbie.radius) {
+      orbie.x = canvas.width - orbie.radius;
       orbie.dx *= -0.5;
       orbie.dy *= 0.8;
     }
-    if(orbie.x + orbie.dx < 0) {
-      orbie.x = 0;
+    if(orbie.x + orbie.dx < orbie.radius) {
+      orbie.x = orbie.radius;
       orbie.dx *= -0.5;
       orbie.dy *= 0.8;
     }
