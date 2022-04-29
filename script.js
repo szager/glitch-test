@@ -23,25 +23,17 @@ class orbee {
 var orbeez = [new orbee()];
 
 
-var letters = '0123456789ABCDEF';
-var color = '#';
-var a = function () {color += "0";},
-    b = function () {color += "f";},
-    c = function () {color += letters[Math.round(Math.random() * 16)];},
-    array = [a, b, c];
 
 
 function make_color() {
-  color = '#';
+  let color = '#';
+  let letters = '0123456789ABCDEF';
+  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 16)];
+  return(color);
 
-  array = array.map(function (a, i, o) {
-    let j = (Math.random() * (o.length - i) | 0) + i,
-        t = o[j];
-    o[j] = a;
-    return t;
-  });
-  array.forEach(function (a) { a(); });
-
+}
 
 
 function tick() {
@@ -63,7 +55,7 @@ function tick() {
       let ly = orbie.y - cursor_y;
       let distance = Math.hypot(lx, ly);
       if (distance < 100) {
-        orbie.radius += (10 - orbie.radius) / 10;
+        orbie.radius += (20 - orbie.radius) / 64;
         orbie.dx -= (lx / distance * (distance - 100)) / 3;
         orbie.dy -= (ly / distance * (distance - 100)) / 3;
       }
@@ -82,8 +74,8 @@ function tick() {
       let ly = orbie.y - other_orbie.y;
       let distance = Math.hypot(lx, ly);
       if (distance < orbie.radius + other_orbie.radius && orbie != other_orbie) {
-        orbie.dx -= (lx / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
-        orbie.dy -= (ly / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
+        orbie.dx -= lx / distance * (distance - (orbie.radius + other_orbie.radius));
+        orbie.dy -= ly / distance * (distance - (orbie.radius + other_orbie.radius));
       }
     });
   });
@@ -97,10 +89,10 @@ function tick() {
       let lx = orbie.x - other_orbie.x;
       let ly = orbie.y - other_orbie.y;
       let distance = Math.hypot(lx, ly);
-      if (distance < (orbie.radius + other_orbie.radius + 2) * 5 && orbie != other_orbie) {
-        orbie.dx_next += other_orbie.dx * Math.max((1 + (1/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (1/(orbie.radius + other_orbie.radius + 2)), 0) ;
-        orbie.dy_next += other_orbie.dy * Math.max((1 + (1/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (1/(orbie.radius + other_orbie.radius + 2)), 0) ;
-        orbie.squishe += Math.max((1 + (1/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (1/(orbie.radius + other_orbie.radius + 2)), 0);
+      if (distance < (orbie.radius + other_orbie.radius + 2) * 4 && orbie != other_orbie) {
+        orbie.dx_next += other_orbie.dx * Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0) ;
+        orbie.dy_next += other_orbie.dy * Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0) ;
+        orbie.squishe += Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0);
       }
     });
   });
