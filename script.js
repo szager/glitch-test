@@ -40,7 +40,7 @@ function tick() {
   
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  if(orbeez.length < 100) {
+  if(orbeez.length < 128) {
     orbeez.push(new orbee());
   }
   
@@ -56,8 +56,8 @@ function tick() {
       let distance = Math.hypot(lx, ly);
       if (distance < 100) {
         orbie.radius += (20 - orbie.radius) / 64;
-        orbie.dx -= (lx / distance * (distance - 100)) / 3;
-        orbie.dy -= (ly / distance * (distance - 100)) / 3;
+        orbie.dx -= (lx / distance * (distance - 100));
+        orbie.dy -= (ly / distance * (distance - 100));
       }
       //visual indication of cursor force
       ctx.beginPath();
