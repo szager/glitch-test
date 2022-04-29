@@ -1,4 +1,4 @@
-const canvas = document.querySelector("canvas")
+const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 class orbee {
@@ -11,18 +11,16 @@ class orbee {
 }
 
 
-ctx.fillStyle 
-var orbeez = [];
+ctx.fillStyle = "red";
+var orbeez = [new orbee()];
 
 function tick() {
-  if(orbeez.length < 20) {
+  if(orbeez.length < 4) {
     orbeez.push(new orbee());
   }
   
   orbeez.forEach(orbie => {
-    orbie.dy++;
-    orbie.x += orbie.dx;
-    orbie.y += orbie.dy;
+    orbie.dy += 1;
     
     //wall collision
     if(orbie.y + orbie.dy > canvas.height) {
@@ -38,9 +36,20 @@ function tick() {
       orbie.dx *= -0.5;
     }
     
+    
+    orbie.x += orbie.dx;
+    orbie.y += orbie.dy;
+    
+    
     ctx.beginPath();
     ctx.arc(orbie.x, orbie.y, 10, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();
+    
+    
   });
+  
+  requestAnimationFrame(tick);
 }
+
+tick();
