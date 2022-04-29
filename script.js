@@ -40,7 +40,7 @@ function tick() {
   
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  if(orbeez.length < 128) {
+  if(orbeez.length < 400) {
     orbeez.push(new orbee());
   }
   
