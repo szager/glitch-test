@@ -35,8 +35,8 @@ function tick() {
       let ly = orbie.y - cursor_y;
       let distance = Math.hypot(lx, ly);
       if (distance < 100) {
-        orbie.dx -= (lx / distance * (distance - 100));
-        orbie.dy -= (ly / distance * (distance - 100));
+        orbie.dx -= (lx / distance * (distance - 100)) / 3;
+        orbie.dy -= (ly / distance * (distance - 100)) / 3;
       }
       //visual indication of cursor force
       ctx.beginPath();
@@ -48,19 +48,18 @@ function tick() {
     
     //orbee-to-orbee interaction
     orbeez.forEach(other_orbie => {
-      let lx = orbie.x - orbie.x;
+      
+      let lx = orbie.x - other_orbie.x;
       let ly = orbie.y - other_orbie.y;
       let distance = Math.hypot(lx, ly);
-      if (distance < 100) {
-        orbie.dx -= (lx / distance * (distance - 100));
-        orbie.dy -= (ly / distance * (distance - 100));
+      if (distance < orbie.radius + other_orbie.radius) {
+        orbie.dx -= (lx / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
+        orbie.dy -= (ly / distance * (distance - (orbie.radius + other_orbie.radius))) / 2;
       }
-      
-      
     });
-    
-    
-    
+  });
+  
+  orbeez.forEach(orbie => {
     
     //wall collision
     if(orbie.y + orbie.dy > canvas.height) {
