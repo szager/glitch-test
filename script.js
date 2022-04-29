@@ -40,7 +40,7 @@ function tick() {
   
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  if(orbeez.length < 128) {
+  if(orbeez.length < 256) {
     orbeez.push(new orbee());
   }
   
@@ -55,9 +55,9 @@ function tick() {
       let ly = orbie.y - cursor_y;
       let distance = Math.hypot(lx, ly);
       if (distance < 100) {
-        orbie.radius += (20 - orbie.radius) / 64;
-        orbie.dx -= (lx / distance * (distance - 100));
-        orbie.dy -= (ly / distance * (distance - 100));
+        orbie.radius += (15 - orbie.radius) / 64;
+        orbie.dx -= (lx / distance * (distance - 100)) * 2;
+        orbie.dy -= (ly / distance * (distance - 100)) * 2;
       }
       //visual indication of cursor force
       ctx.beginPath();
@@ -134,6 +134,8 @@ function tick() {
   requestAnimationFrame(tick);
 }
 
+
+alert("would not reccomend using on mobile")
 tick();
 
 document.addEventListener("mousemove", function (e) {
