@@ -6,6 +6,13 @@ var cursor_y = 0
 var cursor_radius = 50;
 var center_x = 0;
 var center_y = 0;
+var distances = [];
+for (let i = 0; i < max_orbeez; i++) {
+  let arr = [];
+  distances.push(arr);
+  for (let j = 0; j < max_orbeez; j++)
+    arr.push(0);
+}
 
 class orbee {
   constructor () {
@@ -52,7 +59,17 @@ function tick() {
     orbeez.push(new orbee());
     orbeez.push(new orbee());
   }
-  
+
+  for (let i = 0; i < orbeez.length; i++) {
+    const o1 = orbeez[i];
+    const arr = distances[i];
+    for (let j = 0; j < orbeez.length; j++) {
+      if (i == j)
+        continue;
+      const o2 = orbeez[j];
+      arr[j] = Math.hypot(o2.x - o1.x, o2.y - o1.y);
+    }
+  }
   orbeez.forEach(orbie => {
     // gravity
     let dx = center_x - orbie.x;
@@ -65,7 +82,7 @@ function tick() {
     orbie.dy *= 0.98;
     orbie.dx *= 0.98;
 
-    // cursur force
+    // cursor force
     let lx = orbie.x - cursor_x;
     let ly = orbie.y - cursor_y;
     let distance = Math.hypot(lx, ly);
