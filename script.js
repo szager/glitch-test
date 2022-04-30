@@ -84,11 +84,15 @@ function tick() {
     
     //orbee-to-orbee interaction
     orbeez.forEach(other_orbie => {
-      
-      let lx = orbie.x - other_orbie.x;
-      let ly = orbie.y - other_orbie.y;
+      if (orbie === other_orbie)
+        return;
+      const lx = orbie.x - other_orbie.x;
+      const ly = orbie.y - other_orbie.y;
+      const rsum = orbie.radius + other_orbie.radius;
+      if (lx >= rsum || ly >= rsum)
+        return;
       let distance = Math.hypot(lx, ly);
-      if (distance < orbie.radius + other_orbie.radius && orbie != other_orbie) {
+      if (distance < rsum) {
         orbie.dx -= lx / distance * (distance - (orbie.radius + other_orbie.radius));
         orbie.dy -= ly / distance * (distance - (orbie.radius + other_orbie.radius));
       }
