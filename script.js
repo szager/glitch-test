@@ -28,9 +28,9 @@ var orbeez = [new orbee()];
 function make_color() {
   let color = '#';
   let letters = '0123456789ABCDEF';
-  color += letters[Math.round(Math.random() * 16)];
-  color += letters[Math.round(Math.random() * 16)];
-  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 256)];
+  color += letters[Math.round(Math.random() * 256)];
+  color += letters[Math.round(Math.random() * 256)];
   return(color);
 
 }
@@ -39,7 +39,7 @@ function make_color() {
 function tick() {
   
   //ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#000e";
+  ctx.fillStyle = "#0008";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
   if(orbeez.length < 500) {
@@ -130,6 +130,11 @@ function tick() {
     ctx.beginPath();
     ctx.arc(orbie.x, orbie.y, orbie.radius, 0, Math.PI * 2);
     ctx.fillStyle = orbie.color;
+    ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.arc(orbie.x - (orbie.radius/4), orbie.y - (orbie.radius/4), orbie.radius/4, 0, Math.PI * 2);
+    ctx.fillStyle = "white";
     ctx.fill();
     ctx.closePath();
     
