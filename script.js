@@ -58,8 +58,10 @@ function tick() {
     let dx = center_x - orbie.x;
     let dy = center_y - orbie.y;
     let d = Math.hypot(dx, dy);
-    orbie.dx += (dx*dx) / (d*d);
-    orbie.dy += (dy*dy) / (d*d);
+    dx = (dx*Math.abs(dx)) / (d*d);
+    dy = (dy*Math.abs(dy)) / (d*d);
+    orbie.dx += dx;
+    orbie.dy += dy;
     //orbie.dy++;
     orbie.dy *= 0.98;
     orbie.dx *= 0.98;
