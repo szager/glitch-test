@@ -38,9 +38,11 @@ function make_color() {
 
 function tick() {
   
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#0001";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  if(orbeez.length < 1000) {
+  if(orbeez.length < 500) {
     orbeez.push(new orbee());
     orbeez.push(new orbee());
     orbeez.push(new orbee());
@@ -62,11 +64,11 @@ function tick() {
         orbie.dy -= (ly / distance * (distance - 100)) * 2;
       }
       //visual indication of cursor force
-      ctx.beginPath();
-      ctx.fillStyle = "#0f02";
-      ctx.arc(cursor_x, cursor_y, 90, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.closePath();
+      //ctx.beginPath();
+      //ctx.fillStyle = "#0f02";
+      //ctx.arc(cursor_x, cursor_y, 90, 0, Math.PI * 2);
+      //ctx.fill();
+      //ctx.closePath();
     }
     
     //orbee-to-orbee interaction
@@ -138,7 +140,7 @@ function tick() {
 }
 
 
-alert("would not reccomend using on mobile")
+alert("would not reccomend using on mobile devices")
 tick();
 
 document.addEventListener("mousemove", function (e) {
