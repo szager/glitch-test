@@ -89,13 +89,16 @@ function tick() {
     orbie.dx_next = orbie.dx;
     orbie.dy_next = orbie.dy;
     orbie.squishe = 1;
-      orbeez.forEach(other_orbie => {
-      
-      let lx = orbie.x - other_orbie.x;
-      let ly = orbie.y - other_orbie.y;
-      let distance = Math.hypot(lx, ly);
-      if (distance < (orbie.radius + other_orbie.radius + 2) * 4 && orbie != other_orbie) {
-        let weight = Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0);
+    orbeez.forEach(other_orbie => {
+      if (orbie == other_orbie)
+        return;
+      const lx = orbie.x - other_orbie.x;
+      const ly = orbie.y - other_orbie.y;
+      const distance = Math.hypot(lx, ly);
+      const r = orbie.radius;
+      const or = other_orbie.radius;
+      if (distance < (r + or + 2) * 4) {
+        let weight = Math.max((1 + (.25/(r + or + 2)))/(distance + 1) - (.25/(r + or + 2)), 0);
         orbie.dx_next += other_orbie.dx * weight;
         orbie.dy_next += other_orbie.dy * weight;
         orbie.squishe += weight;
@@ -151,13 +154,13 @@ onload = () => {
   tick();  
 }
 
-document.addEventListener("mousemove", function (e) {
+document.addEventListener("pointermove", function (e) {
   cursor_x = e.clientX;
   cursor_y = e.clientY;
 })
-document.addEventListener("mousedown", function () {
+document.addEventListener("pointerdown", function () {
   cursor_radius = 100;
 })
-document.addEventListener("mouseup", function () {
+document.addEventListener("pointerup", function () {
   cursor_radius = 50;
 })
