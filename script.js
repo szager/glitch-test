@@ -1,5 +1,5 @@
 const max_orbeez = (3 * 150) + 1;
-const optimized = false;
+const optimized = true;
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -47,6 +47,10 @@ function make_color() {
   return(color);
 }
 
+function expand(radius) {
+  return radius + ((10 - radius) / 64);  
+}
+
 function tick() {  
   //ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#0008";
@@ -65,7 +69,9 @@ function tick() {
       for (let j = 0; j < orbeez.length; j++) {
         if (j > i) {
           let o2 = orbeez[j];
-          arr[j] = Math.hypot(o2.x - o1.x, o2.y - o1.y);
+          let limit = (expand(o1.radius) + expand(o2.radius) + 2) * 4;
+          if (Math.abs(o2.x - o1.x) < limit && Math.abs(o2.y - o1.y) < limit)
+            arr[j] = Math.hypot(o2.x - o1.x, o2.y - o1.y);
         } else {
           arr[j] = distances[j][i];
         }
@@ -91,7 +97,7 @@ function tick() {
     let ly = orbie.y - cursor_y;
     let distance = Math.hypot(lx, ly);
     if (distance < cursor_radius) {
-      orbie.radius += (10 - orbie.radius) / 64;
+      orbie.radius = expand(orbie.radius);
       orbie.dx -= (lx / distance * (distance - cursor_radius)) * 2;
       orbie.dy -= (ly / distance * (distance - cursor_radius)) * 2;
     }
