@@ -1,9 +1,11 @@
+const max_orbeez = 3 * 150;
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+var cursor_radius = 50;
 var cursor_x = 0;
 var cursor_y = 0
-var cursor_radius = 50;
 var center_x = 0;
 var center_y = 0;
 var distances = [];
@@ -54,23 +56,25 @@ function tick() {
   ctx.fillStyle = "#0008";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  if(orbeez.length < 500) {
+  if(orbeez.length < max_orbeez) {
     orbeez.push(new orbee());
     orbeez.push(new orbee());
     orbeez.push(new orbee());
   }
 
   for (let i = 0; i < orbeez.length; i++) {
-    const o1 = orbeez[i];
-    const arr = distances[i];
+    let o1 = orbeez[i];
+    let arr = distances[i];
     for (let j = 0; j < orbeez.length; j++) {
       if (i == j)
         continue;
-      const o2 = orbeez[j];
+      let o2 = orbeez[j];
       arr[j] = Math.hypot(o2.x - o1.x, o2.y - o1.y);
     }
   }
-  orbeez.forEach(orbie => {
+  
+  for (let i = 0; i < orbeez.length; i++) {
+    let orbie = orbeez[i];
     // gravity
     let dx = center_x - orbie.x;
     let dy = center_y - orbie.y;
@@ -100,45 +104,43 @@ function tick() {
     //ctx.closePath();
     
     //orbee-to-orbee interaction
-    orbeez.forEach(other_orbie => {
-      if (orbie === other_orbie)
-        return;
-      const lx = orbie.x - other_orbie.x;
-      const ly = orbie.y - other_orbie.y;
+    let arr = distances[i];
+    for (let j = 0; j < orbeez.length; j++) {
+      if (i == j)
+        continue;
+      let other_orbie = orbeez[j];
       const rsum = orbie.radius + other_orbie.radius;
-      if (lx >= rsum || ly >= rsum)
-        return;
-      let distance = Math.hypot(lx, ly);
+      let distance = arr[j];
       if (distance < rsum) {
+        const lx = orbie.x - other_orbie.x;
+        const ly = orbie.y - other_orbie.y;
         orbie.dx -= lx / distance * (distance - rsum);
         orbie.dy -= ly / distance * (distance - rsum);
       }
-    });
-  });
-  
-  orbeez.forEach(orbie => {
+    }
+  }
+
+  for (let i = 0; i < orbeez.length; i++) {
+    let orbie = orbeez[i];
+    let arr = distances[i];
     orbie.dx_next = orbie.dx;
     orbie.dy_next = orbie.dy;
     orbie.squishe = 1;
-    orbeez.forEach(other_orbie => {
-      if (orbie == other_orbie)
-        return;
-      const lx = orbie.x - other_orbie.x;
-      const ly = orbie.y - other_orbie.y;
+    for (let j = 0; j < orbeez.length; j++) {
+      if (i == j)
+        continue;
+      let other_orbie = orbeez[j];
       const r = orbie.radius;
       const or = other_orbie.radius;
-      const lim = (r + or + 2) * 4;
-      if (lx >= lim || ly >= lim)
-        return;
-      const distance = Math.hypot(lx, ly);
-      if (distance < lim) {
+      const distance = arr[j];
+      if (distance < (r + or + 2) * 4) {
         let weight = Math.max((1 + (.25/(r + or + 2)))/(distance + 1) - (.25/(r + or + 2)), 0);
         orbie.dx_next += other_orbie.dx * weight;
         orbie.dy_next += other_orbie.dy * weight;
         orbie.squishe += weight;
       }
-    });
-  });
+    }
+  }
   
   orbeez.forEach(orbie => {
     orbie.dy = orbie.dy_next / orbie.squishe;
