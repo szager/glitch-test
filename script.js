@@ -4,6 +4,8 @@ const ctx = canvas.getContext("2d");
 var cursor_x = 0;
 var cursor_y = 0
 var cursor_radius = 50;
+var center_x = 0;
+var center_y = 0;
 
 class orbee {
   constructor () {
@@ -51,8 +53,14 @@ function tick() {
     orbeez.push(new orbee());
   }
   
+  // gravity
   orbeez.forEach(orbie => {
-    orbie.dy += 1;
+    let dx = center_x - orbie.x;
+    let dy = center_y - orbie.y;
+    let d = Math.hypot(dx, dy);
+    orbie.dx += (dx*dx) / (d*d);
+    orbie.dy += (dy*dy) / (d*d);
+    //orbie.dy++;
     orbie.dy *= 0.98;
     orbie.dx *= 0.98;
     
@@ -149,8 +157,12 @@ function tick() {
 }
 
 onload = () => {
-  canvas.width = parseInt(getComputedStyle(canvas).width.replace("px", ""));
-  canvas.height = parseInt(getComputedStyle(canvas).height.replace("px", ""));
+  let w = parseInt(getComputedStyle(canvas).width.replace("px", ""));
+  let h = parseInt(getComputedStyle(canvas).height.replace("px", ""));
+  canvas.width = w;
+  canvas.height = h;
+  center_x = Math.round(w/2);
+  center_y = Math.round(h/2);
   tick();  
 }
 
