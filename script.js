@@ -145,9 +145,11 @@ function tick() {
   requestAnimationFrame(tick);
 }
 
-
-alert("would not reccomend using on mobile devices")
-tick();
+onload = () => {
+  canvas.width = parseInt(getComputedStyle(canvas).width.replace("px", ""));
+  canvas.height = parseInt(getComputedStyle(canvas).height.replace("px", ""));
+  tick();  
+}
 
 document.addEventListener("mousemove", function (e) {
   cursor_x = e.clientX;
