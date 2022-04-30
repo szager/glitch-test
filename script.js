@@ -39,7 +39,7 @@ function make_color() {
 function tick() {
   
   //ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#0001";
+  ctx.fillStyle = "#000e";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
   if(orbeez.length < 500) {
