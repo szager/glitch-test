@@ -2,8 +2,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 var cursor_x = 0;
-var cursor_y = 0;
-var mouse_down = false;
+var cursor_y = 0
+var cursor_radius = 50;
 
 class orbee {
   constructor () {
@@ -28,9 +28,12 @@ var orbeez = [new orbee()];
 function make_color() {
   let color = '#';
   let letters = '0123456789ABCDEF';
-  color += letters[Math.round(Math.random() * 256)];
-  color += letters[Math.round(Math.random() * 256)];
-  color += letters[Math.round(Math.random() * 256)];
+  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 16)];
+  color += letters[Math.round(Math.random() * 16)];
   return(color);
 
 }
@@ -54,22 +57,20 @@ function tick() {
     orbie.dx *= 0.98;
     
     
-    if (mouse_down) {
-      let lx = orbie.x - cursor_x;
-      let ly = orbie.y - cursor_y;
-      let distance = Math.hypot(lx, ly);
-      if (distance < 100) {
-        orbie.radius += (10 - orbie.radius) / 64;
-        orbie.dx -= (lx / distance * (distance - 100)) * 2;
-        orbie.dy -= (ly / distance * (distance - 100)) * 2;
-      }
-      //visual indication of cursor force
-      //ctx.beginPath();
-      //ctx.fillStyle = "#0f02";
-      //ctx.arc(cursor_x, cursor_y, 90, 0, Math.PI * 2);
-      //ctx.fill();
-      //ctx.closePath();
+    let lx = orbie.x - cursor_x;
+    let ly = orbie.y - cursor_y;
+    let distance = Math.hypot(lx, ly);
+    if (distance < cursor_radius) {
+      orbie.radius += (10 - orbie.radius) / 64;
+      orbie.dx -= (lx / distance * (distance - cursor_radius)) * 2;
+      orbie.dy -= (ly / distance * (distance - cursor_radius)) * 2;
     }
+    //visual indication of cursor force
+    //ctx.beginPath();
+    //ctx.fillStyle = "#0f02";
+    //ctx.arc(cursor_x, cursor_y, 90, 0, Math.PI * 2);
+    //ctx.fill();
+    //ctx.closePath();
     
     //orbee-to-orbee interaction
     orbeez.forEach(other_orbie => {
@@ -153,8 +154,8 @@ document.addEventListener("mousemove", function (e) {
   cursor_y = e.clientY;
 })
 document.addEventListener("mousedown", function () {
-  mouse_down = true;
+  cursor_radius = 100;
 })
 document.addEventListener("mouseup", function () {
-  mouse_down = false;
+  cursor_radius = 50;
 })
