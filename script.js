@@ -53,8 +53,8 @@ function tick() {
     orbeez.push(new orbee());
   }
   
-  // gravity
   orbeez.forEach(orbie => {
+    // gravity
     let dx = center_x - orbie.x;
     let dy = center_y - orbie.y;
     let d = Math.hypot(dx, dy);
@@ -62,11 +62,10 @@ function tick() {
     dy = (dy*Math.abs(dy)) / (d*d);
     orbie.dx += dx;
     orbie.dy += dy;
-    //orbie.dy++;
     orbie.dy *= 0.98;
     orbie.dx *= 0.98;
-    
-    
+
+    // cursur force
     let lx = orbie.x - cursor_x;
     let ly = orbie.y - cursor_y;
     let distance = Math.hypot(lx, ly);
@@ -75,6 +74,7 @@ function tick() {
       orbie.dx -= (lx / distance * (distance - cursor_radius)) * 2;
       orbie.dy -= (ly / distance * (distance - cursor_radius)) * 2;
     }
+
     //visual indication of cursor force
     //ctx.beginPath();
     //ctx.fillStyle = "#0f02";
@@ -93,8 +93,8 @@ function tick() {
         return;
       let distance = Math.hypot(lx, ly);
       if (distance < rsum) {
-        orbie.dx -= lx / distance * (distance - (orbie.radius + other_orbie.radius));
-        orbie.dy -= ly / distance * (distance - (orbie.radius + other_orbie.radius));
+        orbie.dx -= lx / distance * (distance - rsum);
+        orbie.dy -= ly / distance * (distance - rsum);
       }
     });
   });
@@ -108,10 +108,13 @@ function tick() {
         return;
       const lx = orbie.x - other_orbie.x;
       const ly = orbie.y - other_orbie.y;
-      const distance = Math.hypot(lx, ly);
       const r = orbie.radius;
       const or = other_orbie.radius;
-      if (distance < (r + or + 2) * 4) {
+      const lim = (r + or + 2) * 4;
+      if (lx >= lim || ly >= lim)
+        return;
+      const distance = Math.hypot(lx, ly);
+      if (distance < lim) {
         let weight = Math.max((1 + (.25/(r + or + 2)))/(distance + 1) - (.25/(r + or + 2)), 0);
         orbie.dx_next += other_orbie.dx * weight;
         orbie.dy_next += other_orbie.dy * weight;
