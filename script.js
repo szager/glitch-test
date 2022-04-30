@@ -40,7 +40,9 @@ function tick() {
   
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  if(orbeez.length < 400) {
+  if(orbeez.length < 1000) {
+    orbeez.push(new orbee());
+    orbeez.push(new orbee());
     orbeez.push(new orbee());
   }
   
@@ -55,7 +57,7 @@ function tick() {
       let ly = orbie.y - cursor_y;
       let distance = Math.hypot(lx, ly);
       if (distance < 100) {
-        orbie.radius += (15 - orbie.radius) / 64;
+        orbie.radius += (10 - orbie.radius) / 64;
         orbie.dx -= (lx / distance * (distance - 100)) * 2;
         orbie.dy -= (ly / distance * (distance - 100)) * 2;
       }
@@ -90,9 +92,10 @@ function tick() {
       let ly = orbie.y - other_orbie.y;
       let distance = Math.hypot(lx, ly);
       if (distance < (orbie.radius + other_orbie.radius + 2) * 4 && orbie != other_orbie) {
-        orbie.dx_next += other_orbie.dx * Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0) ;
-        orbie.dy_next += other_orbie.dy * Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0) ;
-        orbie.squishe += Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0);
+        let weight = Math.max((1 + (.25/(orbie.radius + other_orbie.radius + 2)))/(distance + 1) - (.25/(orbie.radius + other_orbie.radius + 2)), 0);
+        orbie.dx_next += other_orbie.dx * weight;
+        orbie.dy_next += other_orbie.dy * weight;
+        orbie.squishe += weight;
       }
     });
   });
