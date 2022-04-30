@@ -1,5 +1,5 @@
 const max_orbeez = (3 * 150) + 1;
-const optimized = true;
+const optimized = false;
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -110,6 +110,8 @@ function tick() {
         continue;
       let other_orbie = orbeez[j];
       let rsum = orbie.radius + other_orbie.radius;
+      if (Math.abs(other_orbie.x - orbie.x) >= rsum || Math.abs(other_orbie.y - orbie.y) >= rsum)
+        continue;
       let distance = optimized ? arr[j] : Math.hypot(other_orbie.x - orbie.x, other_orbie.y - orbie.y);
       if (distance < rsum) {
         let lx = orbie.x - other_orbie.x;
@@ -132,8 +134,11 @@ function tick() {
       let other_orbie = orbeez[j];
       let r = orbie.radius;
       let or = other_orbie.radius;
+      let limit = (r + or + 2) * 4;
+      if (Math.abs(other_orbie.x - orbie.x) >= limit || Math.abs(other_orbie.y - orbie.y) >= limit)
+        continue;
       let distance = optimized ? arr[j] : Math.hypot(other_orbie.x - orbie.x, other_orbie.y - orbie.y);
-      if (distance < (r + or + 2) * 4) {
+      if (distance < limit) {
         let weight = Math.max((1 + (.25/(r + or + 2)))/(distance + 1) - (.25/(r + or + 2)), 0);
         orbie.dx_next += other_orbie.dx * weight;
         orbie.dy_next += other_orbie.dy * weight;
