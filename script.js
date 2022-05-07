@@ -94,15 +94,16 @@ function tick() {
     orbie.dx *= 0.98;
 
     // cursor force
-    let lx = orbie.x - cursor_x;
-    let ly = orbie.y - cursor_y;
-    let distance = Math.hypot(lx, ly);
-    if (distance < cursor_radius) {
-      orbie.radius = expand(orbie.radius);
-      orbie.dx -= (lx / distance * (distance - cursor_radius)) * 2;
-      orbie.dy -= (ly / distance * (distance - cursor_radius)) * 2;
+    if (cursor_enabled) {
+      let lx = orbie.x - cursor_x;
+      let ly = orbie.y - cursor_y;
+      let distance = Math.hypot(lx, ly);
+      if (distance < cursor_radius) {
+        orbie.radius = expand(orbie.radius);
+        orbie.dx -= (lx / distance * (distance - cursor_radius)) * 2;
+        orbie.dy -= (ly / distance * (distance - cursor_radius)) * 2;
+      }
     }
-
     //visual indication of cursor force
     //ctx.beginPath();
     //ctx.fillStyle = "#0f02";
@@ -207,29 +208,32 @@ onload = () => {
 }
 
 document.addEventListener("mousemove", e => {
+  console.log("mousemove");
   cursor_enabled = true;
   cursor_x = e.clientX;
   cursor_y = e.clientY;
 });
 document.addEventListener("mousedown", e => {
+  console.log("mousedown");
   cursor_enabled = true;
   cursor_radius = 100;
 });
 document.addEventListener("mouseup", e => {
+  console.log("mouseup");
   cursor_enabled = true;
   cursor_radius = 50;
 });
 document.addEventListener("touchstart", e => {
+  console.log("touchstart");
   cursor_enabled = true;
   cursor_radius = 50;
 });
 document.addEventListener("touchmove", e => {
-  cursor_enabled = true;
+  console.log("touchmove");
   cursor_x = e.clientX;
   cursor_y = e.clientY;
-  cursor_radius = 50;
 });
 document.addEventListener("touchend", e => {
-  cursor_enabled = true;
-  cursor_radius = 50;
+  console.log("touchend");
+  cursor_enabled = false;
 });
