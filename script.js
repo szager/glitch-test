@@ -4,6 +4,7 @@ const optimized = true;
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+var ignore_click = false;
 var cursor_enabled = false;
 var cursor_radius = 50;
 var cursor_x = 0;
@@ -208,32 +209,35 @@ onload = () => {
 }
 
 document.addEventListener("mousemove", e => {
-  console.log("mousemove");
-  cursor_enabled = true;
-  cursor_x = e.clientX;
-  cursor_y = e.clientY;
+  if (!ignore_click) {
+    cursor_x = e.clientX;
+    cursor_y = e.clientY;
+  }
 });
 document.addEventListener("mousedown", e => {
-  console.log("mousedown");
+  if (!ignore_click) {
+    cursor_enabled = true;
+    cursor_radius = 100;
+  }
+});
+document.addEventListener("mouseup", e => {
+  if (!ignore_click) {
+    cursor_enabled = true;
+    cursor_radius = 50;
+  }
+  ignore_click = false;
+});
+document.addEventListener("touchstart", e => {
+  ignore_click = true;
   cursor_enabled = true;
   cursor_radius = 100;
 });
-document.addEventListener("mouseup", e => {
-  console.log("mouseup");
-  cursor_enabled = true;
-  cursor_radius = 50;
-});
-document.addEventListener("touchstart", e => {
-  console.log("touchstart");
-  cursor_enabled = true;
-  cursor_radius = 50;
-});
 document.addEventListener("touchmove", e => {
-  console.log("touchmove");
-  cursor_x = e.clientX;
-  cursor_y = e.clientY;
+  ignore_click = false;
+  cursor_radius = 100;
+  cursor_x = e.targetTouches[0].clientX;
+  cursor_y = e.targetTouches[0].clientY;
 });
 document.addEventListener("touchend", e => {
-  console.log("touchend");
   cursor_enabled = false;
 });
