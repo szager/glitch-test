@@ -4,6 +4,7 @@ const optimized = true;
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+var cursor_enabled = false;
 var cursor_radius = 50;
 var cursor_x = 0;
 var cursor_y = 0
@@ -205,13 +206,30 @@ onload = () => {
   tick();  
 }
 
-document.addEventListener("pointermove", function (e) {
+document.addEventListener("mousemove", e => {
+  cursor_enabled = true;
   cursor_x = e.clientX;
   cursor_y = e.clientY;
-})
-document.addEventListener("pointerdown", function () {
+});
+document.addEventListener("mousedown", e => {
+  cursor_enabled = true;
   cursor_radius = 100;
-})
-document.addEventListener("pointerup", function () {
+});
+document.addEventListener("mouseup", e => {
+  cursor_enabled = true;
   cursor_radius = 50;
-})
+});
+document.addEventListener("touchstart", e => {
+  cursor_enabled = true;
+  cursor_radius = 50;
+});
+document.addEventListener("touchmove", e => {
+  cursor_enabled = true;
+  cursor_x = e.clientX;
+  cursor_y = e.clientY;
+  cursor_radius = 50;
+});
+document.addEventListener("touchend", e => {
+  cursor_enabled = true;
+  cursor_radius = 50;
+});
